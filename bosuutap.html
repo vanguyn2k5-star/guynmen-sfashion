@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GUYN - Bộ Sưu Tập 2025</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .look-hover img { transition: transform 0.35s ease; }
+    .look-hover:hover img { transform: scale(1.06); }
+    .look-tag { letter-spacing: 0.22em; font-size: 0.68rem; text-transform: uppercase; }
+    .collection-hero {
+      position: relative;
+      border-radius: 1.75rem;
+      overflow: hidden;
+      background: radial-gradient(circle at top left,#0f172a,#020617);
+    }
+    .collection-hero::after{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at top left,rgba(248,113,113,0.4),transparent 55%);
+      opacity:.85;mix-blend-mode:screen;pointer-events:none;
+    }
+
+    .main-nav .nav-link {
+      position: relative;
+      padding-bottom: 0.15rem;
+      color: #4b5563;
+      transition: color 0.18s ease, transform 0.12s ease;
+    }
+    .main-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      border-radius: 999px;
+      background-image: linear-gradient(90deg, #111827, #b91c1c);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s ease;
+    }
+    .main-nav .nav-link:hover {
+      color: #111827;
+    }
+    .main-nav .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+    .main-nav .nav-link:active {
+      transform: translateY(1px) scale(0.98);
+    }
+    .main-nav .nav-link-active {
+      color: #111827;
+    }
+    .main-nav .nav-link-active::after {
+      transform: scaleX(1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-6">
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="images/logo.png" alt="GUYN" class="h-9">
+        <span class="hidden sm:block text-sm font-semibold tracking-[0.14em] uppercase text-gray-900">GUYN Men's Fashion</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 main-nav text-[11px] font-medium tracking-[0.14em] uppercase">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="sanpham.html" class="nav-link">Sản phẩm</a>
+        <a href="bosuutap.html" class="nav-link nav-link-active">Bộ sưu tập</a>
+        <a href="yeu-thich.html" class="nav-link flex items-center gap-1"><i class="far fa-heart"></i> Yêu thích</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="py-10">
+    <!-- 1. HERO BANNER BỘ SƯU TẬP -->
+    <section class="container mx-auto px-4 max-w-6xl mb-10">
+      <div class="collection-hero grid md:grid-cols-[1.2fr,1fr] gap-0 text-white shadow-2xl">
+        <div class="relative z-10 p-6 md:p-9 flex flex-col justify-between gap-6">
+          <div>
+            <p class="look-tag text-red-200 mb-2 flex items-center gap-2">
+              <span class="inline-flex w-6 h-[2px] bg-red-300"></span>
+              GUYN LOOKBOOK 2025
+            </p>
+            <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-2">
+              Street / Minimal Layering
+            </h1>
+            <p class="text-sm md:text-base text-gray-100/90 max-w-xl mb-3">
+              Bộ sưu tập kết hợp streetwear và minimal, tập trung vào layer gọn gàng, tông màu dễ phối, phù hợp cả đi làm lẫn đi chơi.
+            </p>
+            <p class="text-xs md:text-sm text-gray-200/90 max-w-lg">
+              Lấy cảm hứng từ không khí thành phố ban đêm: ánh đèn vàng, bê tông xám và những khoảng tối. Chất liệu chủ đạo: cotton dày, denim, kaki, len mỏng.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-[11px] md:text-xs">
+            <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/25">Tone: Beige / Navy / Charcoal</span>
+            <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/25">Chất liệu: Cotton, Denim, Kaki</span>
+            <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/25">Phong cách: Workwear / Street</span>
+          </div>
+        </div>
+        <div class="relative h-72 md:h-full look-hover">
+          <img src="images/product010.jpg" alt="Street Minimal Collection" class="w-full h-full object-cover" />
+          <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur px-3 py-2 rounded-2xl text-[11px] flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center text-[10px]"><i class="fas fa-camera"></i></span>
+            <span>Lookbook gồm 12 outfit • 3 chủ đề</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 & 3. GIỚI THIỆU + LOOKBOOK GRID -->
+    <section class="container mx-auto px-4 max-w-6xl mb-10 grid lg:grid-cols-[1.1fr,1.2fr] gap-6 items-start">
+      <div class="bg-white rounded-3xl shadow-md p-5 md:p-6">
+        <p class="text-[11px] uppercase tracking-[0.25em] text-gray-400 mb-1">Concept & Mood</p>
+        <h2 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Ý tưởng bộ sưu tập</h2>
+        <p class="text-xs md:text-sm text-gray-600 mb-3">
+          "Một tủ đồ tối giản nhưng không nhàm chán". Mỗi outfit trong bộ sưu tập đều xoay quanh 3 lớp cơ bản: <strong>áo trong</strong>, <strong>lớp giữa</strong>, <strong>lớp ngoài</strong>,
+          giúp bạn linh hoạt thay đổi theo thời tiết và không gian.
+        </p>
+        <ul class="text-xs text-gray-600 space-y-1.5 mb-4 list-disc list-inside">
+          <li>Tone màu: beige, nâu, navy, xám - dễ phối với mọi tông da.</li>
+          <li>Chất liệu: cotton dệt dày, denim co giãn, kaki đứng form.</li>
+          <li>Phong cách: áp dụng cho đi học, đi làm văn phòng, đi cafe, dạo phố cuối tuần.</li>
+        </ul>
+        <p class="text-[11px] text-gray-500">
+          Mẹo: hãy chọn một màu chủ đạo cho outfit (ví dụ: navy) rồi xoay quanh đó với 1–2 màu trung tính (trắng / xám / đen) để luôn gọn mắt.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4 md:gap-5">
+        <article class="relative rounded-3xl overflow-hidden bg-gray-900 text-white look-hover cursor-pointer" onclick="location.href='sanpham.html?cat=áo khoác'">
+          <img src="images/product011.jpg" alt="Work layering" class="w-full h-60 object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3 text-[11px]">
+            <p class="look-tag text-red-200 mb-1">Office / Work</p>
+            <h3 class="text-sm font-semibold mb-0.5">Blazer x Kaki x Knit</h3>
+            <p class="text-gray-200/90">Layer công sở gọn gàng, giữ form đẹp cả ngày.</p>
+          </div>
+        </article>
+
+        <article class="relative rounded-3xl overflow-hidden bg-gray-900 text-white look-hover cursor-pointer" onclick="location.href='sanpham.html?cat=quần jeans'">
+          <img src="images/product012.jpg" alt="Weekend denim" class="w-full h-60 object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3 text-[11px]">
+            <p class="look-tag text-red-200 mb-1">Weekend / Street</p>
+            <h3 class="text-sm font-semibold mb-0.5">Denim on Denim</h3>
+            <p class="text-gray-200/90">Jeans và áo khoác denim cho cuối tuần năng động.</p>
+          </div>
+        </article>
+
+        <article class="relative rounded-3xl overflow-hidden bg-gray-900 text-white look-hover cursor-pointer sm:col-span-2" onclick="location.href='sanpham.html?cat=áo polo'">
+          <img src="images/product013.jpg" alt="Cafe date" class="w-full h-56 md:h-64 object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-[11px]">
+            <div>
+              <p class="look-tag text-red-200 mb-1">Date / Cafe</p>
+              <h3 class="text-sm font-semibold mb-0.5">Soft Polo Layers</h3>
+              <p class="text-gray-200/90">Polo, quần tây và áo khoác nhẹ cho buổi hẹn.</p>
+            </div>
+            <button class="px-3 py-1.5 rounded-full bg-white/90 text-gray-900 text-[11px] font-semibold flex items-center gap-1">
+              Xem outfit gợi ý
+              <i class="fas fa-arrow-right text-[10px]"></i>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4,5,6,7. DANH SÁCH SẢN PHẨM + FILTER + YÊU THÍCH -->
+    <section class="container mx-auto px-4 max-w-6xl mb-12">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.25em] text-gray-400 mb-1">Collection items</p>
+          <h2 class="text-lg md:text-xl font-bold text-gray-900">Sản phẩm thuộc bộ sưu tập</h2>
+          <p class="text-xs md:text-sm text-gray-600">Danh sách được chọn lọc từ dữ liệu sản phẩm hiện có.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px] md:text-xs">
+          <select id="filter-type" class="border border-gray-300 rounded-full px-3 py-1.5 text-gray-700 bg-white text-xs">
+            <option value="all">Tất cả loại</option>
+            <option value="top">Áo / Outer</option>
+            <option value="bottom">Quần</option>
+            <option value="accessory">Phụ kiện</option>
+          </select>
+          <select id="filter-color" class="border border-gray-300 rounded-full px-3 py-1.5 text-gray-700 bg-white text-xs">
+            <option value="all">Tất cả màu</option>
+            <option value="dark">Tông tối</option>
+            <option value="light">Tông sáng</option>
+            <option value="earth">Beige / Nâu</option>
+          </select>
+          <select id="filter-price" class="border border-gray-300 rounded-full px-3 py-1.5 text-gray-700 bg-white text-xs">
+            <option value="all">Mọi tầm giá</option>
+            <option value="1">Dưới 399K</option>
+            <option value="2">399K - 699K</option>
+            <option value="3">Trên 699K</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="collection-products" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 text-xs md:text-sm"></div>
+      <div class="mt-4 flex items-center justify-center">
+        <button id="btn-load-more" class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 text-xs md:text-sm hover:bg-gray-100">
+          Xem thêm sản phẩm
+        </button>
+      </div>
+    </section>
+      <!-- Look 1 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col">
+        <div class="relative h-60 overflow-hidden">
+          <img src="images/product014.jpg" class="w-full h-full object-cover" alt="Office look" />
+          <span class="absolute top-3 left-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-full">Office / Smart</span>
+        </div>
+        <div class="p-4 flex-1 flex flex-col text-sm">
+          <h2 class="font-semibold text-gray-900 mb-1">Blazer + Kaki + Sơ mi</h2>
+          <p class="text-gray-600 text-xs mb-2">
+            Set lịch sự cho đi làm, gặp đối tác. Dùng blazer xanh navy, quần kaki ống đứng và sơ mi trắng.
+          </p>
+          <ul class="text-xs text-gray-500 mb-3 list-disc list-inside">
+            <li><a href="sanpham.html?cat=áo blazer" class="text-red-600 hover:underline">Áo blazer</a></li>
+            <li><a href="sanpham.html?cat=quan dai kaki" class="text-red-600 hover:underline">Quần dài kaki</a></li>
+            <li><a href="sanpham.html?cat=áo somi" class="text-red-600 hover:underline">Áo sơ mi</a></li>
+          </ul>
+          <button onclick="location.href='sanpham.html?cat=ao-blazer'" class="mt-auto w-full bg-black text-white text-xs font-semibold py-2 rounded-2xl hover:bg-gray-900 flex items-center justify-center gap-2">
+            Xem các mẫu tương tự <i class="fas fa-arrow-right text-[11px]"></i>
+          </button>
+        </div>
+      </article>
+
+      <!-- Look 2 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col">
+        <div class="relative h-60 overflow-hidden">
+          <img src="images/product015.jpg" class="w-full h-full object-cover" alt="Street look" />
+          <span class="absolute top-3 left-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-full">Street / Casual</span>
+        </div>
+        <div class="p-4 flex-1 flex flex-col text-sm">
+          <h2 class="font-semibold text-gray-900 mb-1">Áo khoác gió + Jeans + Sneaker</h2>
+          <p class="text-gray-600 text-xs mb-2">
+            Outfit đi chơi cuối tuần: khoác gió 2 lớp, quần jeans slim và sneaker trắng.
+          </p>
+          <ul class="text-xs text-gray-500 mb-3 list-disc list-inside">
+            <li><a href="sanpham.html?cat=áo khoác" class="text-red-600 hover:underline">Áo khoác</a></li>
+            <li><a href="sanpham.html?cat=quần jeans" class="text-red-600 hover:underline">Quần jeans</a></li>
+            <li><a href="sanpham.html?cat=phụ kiện" class="text-red-600 hover:underline">Giày sneaker</a></li>
+          </ul>
+          <button onclick="location.href='sanpham.html?cat=áo khoác'" class="mt-auto w-full bg-black text-white text-xs font-semibold py-2 rounded-2xl hover:bg-gray-900 flex items-center justify-center gap-2">
+            Mua ngay set tương tự <i class="fas fa-arrow-right text-[11px]"></i>
+          </button>
+        </div>
+      </article>
+
+      <!-- Look 3 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col">
+        <div class="relative h-60 overflow-hidden">
+          <img src="images/product016.jpg" class="w-full h-full object-cover" alt="Date look" />
+          <span class="absolute top-3 left-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-full">Date / Cafe</span>
+        </div>
+        <div class="p-4 flex-1 flex flex-col text-sm">
+          <h2 class="font-semibold text-gray-900 mb-1">Polo + Kaki + Giày da</h2>
+          <p class="text-gray-600 text-xs mb-2">
+            Phong cách nhẹ nhàng, phù hợp đi hẹn hò hoặc cafe cuối tuần.
+          </p>
+          <ul class="text-xs text-gray-500 mb-3 list-disc list-inside">
+            <li><a href="sanpham.html?cat=áo polo" class="text-red-600 hover:underline">Áo polo</a></li>
+            <li><a href="sanpham.html?cat=quan dai kaki" class="text-red-600 hover:underline">Quần kaki</a></li>
+            <li><a href="sanpham.html?cat=phụ kiện" class="text-red-600 hover:underline">Giày / thắt lưng</a></li>
+          </ul>
+          <button onclick="location.href='sanpham.html?cat=áo polo'" class="mt-auto w-full bg-black text-white text-xs font-semibold py-2 rounded-2xl hover:bg-gray-900 flex items-center justify-center gap-2">
+            Xem polo đang bán chạy <i class="fas fa-arrow-right text-[11px]"></i>
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <section class="container mx-auto px-4 max-w-6xl mb-16">
+      <div class="bg-white rounded-3xl shadow-md p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.3em] text-gray-400 mb-1">Tip chọn outfit</p>
+          <h2 class="text-lg md:text-xl font-bold text-gray-900 mb-1">Xem bộ sưu tập, sau đó lọc theo size & tầm giá</h2>
+          <p class="text-xs md:text-sm text-gray-600 max-w-xl">
+            Từ mỗi look bạn thích, hãy bấm vào danh mục tương ứng để qua trang sản phẩm `sanpham.html`, sau đó dùng bộ lọc theo size, giá, phong cách để chốt món phù hợp với bạn.
+          </p>
+        </div>
+        <button onclick="location.href='sanpham.html'" class="px-4 py-2 rounded-full bg-red-600 text-white text-xs md:text-sm font-semibold hover:bg-red-700 flex items-center gap-2">
+          Đến trang sản phẩm
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-300 py-8 text-xs">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
+      <p>© 2025 GUYN Men's Fashion</p>
+      <p class="text-gray-500">Bộ sưu tập chỉ là gợi ý. Giá & tồn kho xem tại trang sản phẩm.</p>
+    </div>
+  </footer>
+  <script src="js/product.js"></script>
+  <script>
+    // Lọc đơn giản theo loại, màu, giá sử dụng dữ liệu products
+    (function(){
+      const listEl = document.getElementById('collection-products');
+      const btnMore = document.getElementById('btn-load-more');
+      const selType = document.getElementById('filter-type');
+      const selColor = document.getElementById('filter-color');
+      const selPrice = document.getElementById('filter-price');
+
+      if(!listEl || !window.products) return;
+
+      const base = (window.products || []).filter(p => p.collectionTag === '2025' || p.styleTag || p.category);
+      let visibleCount = 6;
+
+      function matchesFilters(p){
+        const typeVal = selType.value;
+        const colorVal = selColor.value;
+        const priceVal = selPrice.value;
+
+        // Loại
+        if(typeVal !== 'all'){
+          const cat = (p.category || '').toLowerCase();
+          if(typeVal === 'top' && !(cat.includes('áo') || cat.includes('khoác'))) return false;
+          if(typeVal === 'bottom' && !(cat.includes('quần') || cat.includes('jeans') || cat.includes('kaki'))) return false;
+          if(typeVal === 'accessory' && !(cat.includes('phụ kiện') || cat.includes('belt') || cat.includes('ví'))) return false;
+        }
+
+        // Màu
+        if(colorVal !== 'all'){
+          const color = (p.color || '').toString().toLowerCase();
+          if(colorVal === 'dark' && !(color.includes('đen') || color.includes('navy') || color.includes('xám'))) return false;
+          if(colorVal === 'light' && !(color.includes('trắng') || color.includes('be') || color.includes('kem'))) return false;
+          if(colorVal === 'earth' && !(color.includes('nâu') || color.includes('be') || color.includes('olive'))) return false;
+        }
+
+        // Giá
+        if(priceVal !== 'all'){
+          const price = Number(p.price || 0);
+          if(priceVal === '1' && !(price < 399000)) return false;
+          if(priceVal === '2' && !(price >= 399000 && price <= 699000)) return false;
+          if(priceVal === '3' && !(price > 699000)) return false;
+        }
+        return true;
+      }
+
+      function getFavorites(){
+        try { return JSON.parse(localStorage.getItem('favorites') || '[]'); } catch { return []; }
+      }
+      function toggleFavorite(id){
+        let fav = getFavorites();
+        if(fav.includes(id)) fav = fav.filter(x => x !== id); else fav.push(id);
+        localStorage.setItem('favorites', JSON.stringify(fav));
+        render();
+      }
+
+      function render(){
+        const fav = getFavorites();
+        const filtered = base.filter(matchesFilters);
+        const items = filtered.slice(0, visibleCount);
+        listEl.innerHTML = items.map(p => {
+          const isFav = fav.includes(p.id);
+          const tag = p.tag || (p.isLimited ? 'Limited' : (p.isBestSeller ? 'Best Seller' : 'New'));
+          const hasDiscount = p.discount > 0 && p.originalPrice;
+          return `
+            <article class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col text-xs">
+              <div class="relative h-48 overflow-hidden group cursor-pointer" onclick="location.href='chitietsp.html?id=${p.id}'">
+                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <div class="absolute top-2 left-2 flex flex-col gap-1">
+                  <span class="px-2 py-0.5 rounded-full bg-black/70 text-white text-[10px]">${tag}</span>
+                  ${hasDiscount ? `<span class="px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px]">-${p.discount}%</span>` : ''}
+                </div>
+                <button type="button" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 text-gray-700 flex items-center justify-center shadow-sm hover:text-red-500" onclick="event.stopPropagation(); toggleFavorite(${p.id});">
+                  <i class="${isFav ? 'fas' : 'far'} fa-heart text-[12px]"></i>
+                </button>
+              </div>
+              <div class="p-3 flex-1 flex flex-col">
+                <h3 class="text-[13px] font-semibold text-gray-900 line-clamp-2 mb-1">${p.name}</h3>
+                <div class="flex items-center gap-1 mb-1">
+                  <span class="text-red-600 font-semibold text-[13px]">${(p.price || 0).toLocaleString()}đ</span>
+                  ${hasDiscount ? `<span class="text-[11px] text-gray-400 line-through">${p.originalPrice.toLocaleString()}đ</span>` : ''}
+                </div>
+                <p class="text-[11px] text-gray-500 mb-2">${p.colorLabel || 'Nhiều lựa chọn màu sắc'}</p>
+                <div class="mt-auto flex items-center justify-between text-[11px]">
+                  <button type="button" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100" onclick="event.stopPropagation(); location.href='chitietsp.html?id=${p.id}'">
+                    <i class="fas fa-eye text-[10px]"></i>
+                    Xem nhanh
+                  </button>
+                  <button type="button" class="inline-flex items-center gap-1 text-gray-500 hover:text-red-500" onclick="event.stopPropagation(); toggleFavorite(${p.id});">
+                    <i class="${isFav ? 'fas' : 'far'} fa-heart text-[11px]"></i>
+                    Yêu thích
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        if(btnMore){
+          btnMore.classList.toggle('hidden', filtered.length <= visibleCount);
+        }
+      }
+
+      selType.addEventListener('change', () => { visibleCount = 6; render(); });
+      selColor.addEventListener('change', () => { visibleCount = 6; render(); });
+      selPrice.addEventListener('change', () => { visibleCount = 6; render(); });
+      if(btnMore){
+        btnMore.addEventListener('click', () => { visibleCount += 6; render(); });
+      }
+
+      render();
+    })();
+  </script>
+</body>
+</html>

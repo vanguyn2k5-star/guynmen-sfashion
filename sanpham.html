@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GUYN Men's Fashion - Sản Phẩm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root { --accent: #B71C1C; --accent-dark: #8B0A0A; }
+    body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .top-bar { background: #f8f8f8; padding: 0.5rem 0; font-size: 0.875rem; border-bottom: 1px solid #eee; }
+    header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.96); box-shadow: 0 6px 20px rgba(15,23,42,0.08); backdrop-filter: blur(10px); }
+    .group:hover .group-hover\:opacity-100 { opacity: 1; }
+    .group:hover .group-hover\:visible { visibility: visible; }
+    .icon-btn { position: relative; width: 38px; height: 38px; border-radius: 999px; border: 1px solid rgba(148,163,184,0.55); background: #ffffff; display: inline-flex; align-items: center; justify-content: center; transition: all 0.18s ease; }
+    .icon-btn i { font-size: 0.9rem; color: #111827; transition: color 0.18s ease, transform 0.18s ease; }
+    .icon-btn:hover { background: #111827; border-color: #111827; box-shadow: 0 10px 24px rgba(15,23,42,0.18); transform: translateY(-1px); }
+    .icon-btn:hover i { color: #fef2f2; transform: scale(1.02); }
+    .badge { position: absolute; top: -4px; right: -4px; background: var(--accent); color: white; font-size: 0.65rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+    /* HEADER NAV LINKS */
+    .main-nav { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+    .nav-link { position: relative; padding-bottom: 0.3rem; color: #4b5563; transition: color 0.18s ease; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-image: linear-gradient(90deg, #111827, var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-link:hover { color: #111827; }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link-active { color: #111827; }
+    .nav-link-active::after { transform: scaleX(1); }
+    .nav-link i { transition: color 0.18s ease; }
+    .nav-link:hover i { color: var(--accent); }
+    .product-card {
+      border-radius: 1rem;
+      border: 1px solid #e5e7eb;
+      background: linear-gradient(135deg,#ffffff,#f9fafb);
+      box-shadow: 0 8px 24px rgba(15,23,42,0.08);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(15,23,42,0.18);
+      border-color: rgba(248,113,113,0.9);
+    }
+    .product-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(248,113,113,0.08), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .product-card:hover::after { opacity: 1; }
+    .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 3rem; position: relative; }
+    .section-title::after { content: ''; width: 80px; height: 4px; background: var(--accent); display: block; margin: 10px auto; border-radius: 2px; }
+    #product-list { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+    @media (max-width: 1024px) { #product-list { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { #product-list { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .product-card h3 { font-size: 1rem; } .product-card p { font-size: 0.875rem; } }
+    .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+    /* === (MỚI) CSS CHO SKELETON === */
+    .skeleton-card {
+      background-color: #f3f4f6; /* bg-gray-100 */
+      border-radius: 0.5rem; /* rounded-lg */
+      overflow: hidden;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+    .skeleton-img {
+      height: 12rem; /* h-48 */
+      background-color: #e5e7eb; /* bg-gray-200 */
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .skeleton-text {
+      height: 1rem;
+      background-color: #e5e7eb; /* bg-gray-200 */
+      margin: 0.75rem;
+      border-radius: 0.25rem;
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .skeleton-btn {
+      height: 2.5rem;
+      background-color: #e5e7eb; /* bg-gray-200 */
+      margin: 0.75rem;
+      border-radius: 0.25rem;
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .5; }
+    }
+
+    /* === (MỚI) CSS CHO TOAST === */
+    .toast {
+      background-color: #2d3748; /* bg-gray-800 */
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease-out;
+      margin-top: 10px;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === MEGA FILTER BAR / QUICK TAGS (CATEGORY PAGE) === */
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(255,255,255,0.9);
+      color: #111827;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .pill-btn i { font-size: 0.8rem; }
+    .pill-btn:hover {
+      background: #111827;
+      color: #fef2f2;
+      border-color: #111827;
+      box-shadow: 0 10px 24px rgba(15,23,42,0.18);
+      transform: translateY(-1px);
+    }
+    .pill-btn.active {
+      background: #111827;
+      color: #fef2f2;
+      border-color: #111827;
+    }
+    .filter-chip-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: #ffffff;
+      color: #111827;
+      cursor: pointer;
+      transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+    }
+    .filter-chip-icon span.icon { font-size: 0.95rem; }
+    .filter-chip-icon:hover {
+      background: #111827;
+      color: #e5e7eb;
+      box-shadow: 0 10px 24px rgba(15,23,42,0.18);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="top-bar text-center text-gray-600">
+    <div class="container mx-auto px-4 flex justify-between items-center text-xs">
+      <span>Giảm tới <b>50%</b> các sản phẩm trong tuần</span>
+      <a href="#lien-he" class="text-red-600 font-medium">Liên hệ</a>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-3">
+        <a href="index.html" class="flex items-center">
+          <img src="images/logo.png" alt="GUYN" class="h-10">
+          <span class="ml-2 text-xl font-bold hidden sm:block">GUYN Men's Fashion</span>
+        </a>
+        <div class="flex items-center gap-6">
+          <nav class="hidden md:flex items-center gap-7 main-nav">
+            <a href="index.html" class="nav-link">Trang chủ</a>
+            <div class="relative group">
+              <a href="sanpham.html?cat=ao-nam" class="nav-link flex items-center gap-1">Áo nam <i class="fas fa-chevron-down text-[10px]"></i></a>
+              <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <a href="sanpham.html?cat=áo khoác" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Áo Khoác</a>
+                <a href="sanpham.html?cat=áo nỉ" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Áo - Quần Nỉ</a>
+                <a href="sanpham.html?cat=áo polo" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Áo Polo</a>
+                <a href="sanpham.html?cat=áo somi" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Áo Sơ Mi</a>
+                <a href="sanpham.html?cat=áo T-shirt" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Áo Thun</a>
+                <a href="sanpham.html?cat=áo blazer" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Áo Blazer</a>
+                <a href="sanpham.html?cat=áo len" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Áo Len</a>
+              </div>
+            </div>
+            <div class="relative group">
+              <a href="sanpham.html?cat=quan-nam" class="nav-link flex items-center gap-1">Quần nam <i class="fas fa-chevron-down text-[10px]"></i></a>
+              <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <a href="sanpham.html?cat=quan dai kaki" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Quần Dài Kaki</a>
+                <a href="sanpham.html?cat=quan au" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Quần Âu</a>
+                <a href="sanpham.html?cat=quan gio" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Quần Giô</a>
+                <a href="sanpham.html?cat=quần jeans" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Quần Jeans</a>
+                <a href="sanpham.html?cat=quan short" class="block px-4 py-3 hover:bg-gray-50 text-gray-700">Quần Short</a>
+              </div>
+            </div>
+            <a href="cuahang.html" class="nav-link">Hệ thống</a>
+          </nav>
+          <div class="flex items-center gap-3">
+            <button class="icon-btn" id="search-toggle"><i class="fas fa-search text-gray-700"></i></button>
+            <a href="giohang.html" class="icon-btn relative"><i class="fas fa-shopping-bag text-gray-700"></i><span class="badge" id="cart-count">0</span></a>
+            <a href="dang-nhap.html" class="icon-btn relative"><i class="fas fa-user text-gray-700"></i><span class="badge">1</span></a>
+          </div>
+        </div>
+      </div>
+      <div id="search-bar" class="hidden pb-3">
+        <input type="text" id="search-input" placeholder="Tìm áo khoác, quần jeans..." class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none text-lg">
+      </div>
+    </div>
+  </header>
+
+  <section class="py-14 bg-gradient-to-b from-gray-50 via-white to-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto mb-3 text-center">
+        <p class="text-[11px] font-semibold tracking-[0.18em] text-gray-500 uppercase mb-1">Guyn menswear • category</p>
+        <h2 class="section-title mb-2">Áo Nam</h2>
+        <p class="text-xs md:text-sm text-gray-500">Outfit nam hiện đại cho đi học, đi làm, đi chơi & hẹn hò – phom chuẩn vóc dáng nam Việt.</p>
+      </div>
+
+      <!-- Mega Filter Intro Card -->
+      <div class="max-w-5xl mx-auto mb-5 bg-white rounded-2xl shadow flex flex-col md:flex-row items-stretch overflow-hidden border border-gray-100">
+        <div class="flex-1 px-5 py-4 bg-gradient-to-r from-red-50 via-white to-white flex flex-col justify-center">
+          <p class="text-sm font-semibold text-gray-900 mb-1">Outfit GUYN cho mọi ngày đi làm, đi chơi.</p>
+          <p class="text-xs text-gray-500 mb-2">Chọn nhanh từ hơn 100+ mẫu áo quần, tối ưu cho vóc dáng nam Việt.</p>
+          <div class="flex flex-wrap gap-2 text-[11px] text-gray-700">
+            <span class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100"><i class="fas fa-certificate text-yellow-500"></i> Chính hãng 100%</span>
+            <span class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100"><i class="fas fa-sync-alt text-green-500"></i> Đổi size 7 ngày</span>
+            <span class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100"><i class="fas fa-truck-fast text-blue-500"></i> Freeship từ 299k</span>
+          </div>
+        </div>
+        <div class="flex-1 px-5 py-4 bg-gray-50 flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
+          <div class="text-left md:text-center">
+            <p class="uppercase tracking-wide text-gray-500 text-[11px]">Độ hot hôm nay</p>
+            <p class="text-sm font-bold text-gray-900">1.2K+ đơn GUYN / tháng</p>
+          </div>
+          <button id="btn-hot-combo" class="px-4 py-2 rounded-full bg-red-600 text-white text-xs font-semibold flex items-center gap-2 hover:bg-red-700">
+            <i class="fas fa-fire"></i>
+            Xem combo giảm sâu
+          </button>
+        </div>
+      </div>
+
+      <!-- Mega Filter Bar: pill buttons + quick tags -->
+      <div class="max-w-5xl mx-auto mb-4 bg-gradient-to-r from-gray-50 via-white to-gray-50 rounded-2xl border border-gray-200 shadow-sm px-4 py-3 md:px-5 md:py-4 flex flex-col gap-3">
+        <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+          <div class="flex-1 min-w-0">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-gray-500 mb-1">Bộ lọc nổi bật</p>
+            <div class="flex flex-wrap gap-1.5" id="primary-pill-group">
+              <button type="button" class="pill-btn" data-pill="best" onclick="handlePrimaryPillClick('best')"><i class="fas fa-fire"></i><span>Bán chạy</span></button>
+              <button type="button" class="pill-btn" data-pill="new" onclick="handlePrimaryPillClick('new')"><i class="fas fa-sparkles"></i><span>Hàng mới</span></button>
+              <button type="button" class="pill-btn" data-pill="deal" onclick="handlePrimaryPillClick('deal')"><i class="fas fa-coins"></i><span>Giá tốt</span></button>
+              <button type="button" class="pill-btn" data-pill="for-you" onclick="handlePrimaryPillClick('for-you')"><i class="fas fa-wand-magic-sparkles"></i><span>Gợi ý cho bạn</span></button>
+            </div>
+          </div>
+          <div class="w-full md:w-56 flex flex-col gap-1 text-[11px]">
+            <span class="uppercase tracking-[0.16em] text-gray-500">Sắp xếp nhanh</span>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" class="pill-btn" style="font-size:0.7rem" onclick="applyQuickSort('default')">Mới nhất</button>
+              <button type="button" class="pill-btn" style="font-size:0.7rem" onclick="applyQuickSort('price-asc')">Giá ↑</button>
+              <button type="button" class="pill-btn" style="font-size:0.7rem" onclick="applyQuickSort('price-desc')">Giá ↓</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <span class="text-gray-500 mr-1">Tag outfit:</span>
+          <button class="filter-chip-icon" onclick="applyOutfitCombo('study')"><span class="icon">🎒</span><span>Đi học</span></button>
+          <button class="filter-chip-icon" onclick="applyOutfitCombo('work')"><span class="icon">👔</span><span>Đi làm</span></button>
+          <button class="filter-chip-icon" onclick="applyOutfitCombo('play')"><span class="icon">🎮</span><span>Đi chơi</span></button>
+          <button class="filter-chip-icon" onclick="applyOutfitCombo('date')"><span class="icon">❤️</span><span>Hẹn hò</span></button>
+          <button class="filter-chip-icon" onclick="applyOutfitCombo('sport')"><span class="icon">🏃</span><span>Thể thao</span></button>
+          <button class="filter-chip-icon" onclick="applyOutfitCombo('street')"><span class="icon">🧢</span><span>Streetwear</span></button>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row gap-6 mb-6">
+        <div class="w-full md:w-1/4 rounded-2xl shadow-lg border border-gray-900 overflow-hidden bg-gradient-to-b from-gray-900 via-gray-950 to-black text-gray-100 md:sticky md:top-24 self-start">
+          <div class="px-4 pt-4 pb-3 border-b border-gray-800 bg-gradient-to-r from-gray-900 via-black to-gray-900">
+            <h3 class="text-lg font-bold mb-1 flex items-center gap-2 text-white">
+              <i class="fas fa-sliders-h text-red-500"></i>
+              Bộ lọc tối ưu
+            </h3>
+            <p class="text-xs text-gray-400">Chọn đúng sản phẩm trong vài giây, không lạc giữa rừng đồ.</p>
+          </div>
+          <div class="px-4 pb-4 pt-3">
+          <div class="mb-4 text-xs rounded-xl bg-gray-800 border border-gray-700 p-3">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fas fa-user-tie text-red-400"></i>
+              <span class="font-semibold text-gray-100">Bộ lọc nâng cao</span>
+            </div>
+            <div class="grid grid-cols-1 gap-2 text-[11px]">
+              <div>
+                <p class="text-gray-300 mb-1">Phong cách</p>
+                <select id="style-filter" class="w-full p-1.5 rounded bg-gray-900 border border-gray-700 text-gray-100 text-[11px]">
+                  <option value="">Tất cả</option>
+                  <option value="streetwear">Streetwear</option>
+                  <option value="basic">Basic</option>
+                  <option value="lich-lam">Lịch lãm</option>
+                  <option value="office">Công sở</option>
+                  <option value="gym">Gym</option>
+                </select>
+              </div>
+              <div>
+                <p class="text-gray-300 mb-1">Form dáng</p>
+                <select id="fit-filter" class="w-full p-1.5 rounded bg-gray-900 border border-gray-700 text-gray-100 text-[11px]">
+                  <option value="">Tất cả</option>
+                  <option value="oversize">Oversize</option>
+                  <option value="regular">Regular</option>
+                  <option value="slim">Slim fit</option>
+                </select>
+              </div>
+              <div>
+                <p class="text-gray-300 mb-1">Mùa</p>
+                <select id="season-filter" class="w-full p-1.5 rounded bg-gray-900 border border-gray-700 text-gray-100 text-[11px]">
+                  <option value="">Tất cả</option>
+                  <option value="he">Hè</option>
+                  <option value="thu">Thu</option>
+                  <option value="dong">Đông</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-1 text-gray-200">Danh mục</label>
+            <select id="category-filter" class="w-full p-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 focus:ring-2 focus:ring-red-500">
+              <option value="">Tất cả</option>
+              <option value="áo khoác">Áo Khoác</option>
+              <option value="áo nỉ">Áo Nỉ</option>
+              <option value="áo polo">Áo Polo</option>
+              <option value="áo len">Áo Len</option>
+              <option value="áo blazer">Áo Blazer</option>
+              <option value="áo somi">Áo Sơ Mi</option>
+              <option value="áo phông">Áo Phông</option>
+              <option value="áo T-shirt">Áo T-shirt</option>
+              <option value="quần jeans">Quần Jeans</option>
+              <option value="quan dai kaki">Quần Dài Kaki</option>
+              <option value="quan au">Quần Âu</option>
+              <option value="quan gio">Quần Giô</option>
+              <option value="quan short">Quần Short</option>
+              <option value="quần nỉ">Quần Nỉ</option>
+              <option value="phụ kiện">Phụ Kiện</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-1 text-gray-200">Size</label>
+            <select id="size-filter" class="w-full p-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 focus:ring-2 focus:ring-red-500">
+              <option value="">Tất cả</option>
+              <option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option>
+              <option value="28">28</option><option value="30">30</option><option value="32">32</option><option value="34">34</option><option value="36">36</option>
+              <option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option>
+              <option value="One Size">One Size</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-1 text-gray-200">Màu sắc</label>
+            <select id="color-filter" class="w-full p-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 focus:ring-2 focus:ring-red-500">
+              <option value="">Tất cả</option>
+              <option value="Đen">Đen</option>
+              <option value="Trắng">Trắng</option>
+              <option value="Xám">Xám</option>
+              <option value="Xanh Navy">Xanh Navy</option>
+              <option value="Be">Be</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-1 text-gray-200">Tầm giá</label>
+            <select id="price-filter" class="w-full p-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 focus:ring-2 focus:ring-red-500">
+              <option value="">Tất cả</option>
+              <option value="0-300000">Dưới 300.000</option>
+              <option value="300000-500000">300.000 - 500.000</option>
+              <option value="500000-700000">500.000 - 700.000</option>
+              <option value="700000+">Trên 700.000</option>
+            </select>
+          </div>
+          <div class="pt-3 border-t border-dashed border-gray-700">
+            <label class="block text-sm font-medium mb-1 text-gray-200">Sắp xếp</label>
+            <select id="sort-filter" class="w-full p-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 focus:ring-2 focus:ring-red-500">
+              <option value="default">Mặc định</option>
+              <option value="price-asc">Giá: Thấp đến Cao</option>
+              <option value="price-desc">Giá: Cao đến Thấp</option>
+            </select>
+          </div>
+          <p class="mt-3 text-[11px] text-gray-400 flex items-center gap-1"><i class="fas fa-shield-alt text-green-400"></i> Hoàn tiền 7 ngày nếu không ưng.</p>
+          </div>
+        </div>
+
+        <div class="w-full md:w-3/4" id="product-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK VIEW MODAL -->
+  <div id="quick-view-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center px-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col md:flex-row relative">
+      <button class="absolute top-3 right-3 text-gray-500 hover:text-red-600" onclick="closeQuickView()"><i class="fas fa-times text-xl"></i></button>
+      <div class="md:w-1/2 bg-gray-50 flex flex-col justify-center items-center p-4">
+        <div class="relative w-full max-w-md">
+          <img id="qv-main-image" src="" alt="" class="w-full h-72 object-cover rounded-xl">
+          <button id="qv-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full w-8 h-8 flex items-center justify-center text-gray-700 shadow"><i class="fas fa-chevron-left text-xs"></i></button>
+          <button id="qv-next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full w-8 h-8 flex items-center justify-center text-gray-700 shadow"><i class="fas fa-chevron-right text-xs"></i></button>
+        </div>
+        <div id="qv-thumbs" class="flex gap-2 mt-3 overflow-x-auto max-w-md"></div>
+      </div>
+      <div class="md:w-1/2 p-5 md:p-6 flex flex-col gap-3 text-sm overflow-y-auto">
+        <div>
+          <h3 id="qv-name" class="text-lg font-semibold mb-1"></h3>
+          <p id="qv-category" class="text-xs text-gray-500 mb-2"></p>
+          <div class="flex items-end gap-2 mb-1">
+            <span id="qv-price" class="text-red-600 font-bold text-xl"></span>
+            <span id="qv-original" class="text-xs text-gray-400 line-through"></span>
+            <span id="qv-discount" class="text-xs text-white bg-red-600 px-2 py-0.5 rounded-full"></span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-gray-500">
+            <span id="qv-rating" class="flex items-center gap-1"><i class="fas fa-star text-yellow-400"></i><span></span></span>
+            <span id="qv-sold"></span>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-100 pt-3">
+          <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">Chọn size nhanh</p>
+          <div id="qv-sizes" class="flex flex-wrap gap-2"></div>
+          <button id="qv-add-cart" class="mt-3 w-full bg-red-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-red-700 flex items-center justify-center gap-2">
+            <i class="fas fa-cart-plus text-xs"></i>
+            Thêm vào giỏ
+          </button>
+        </div>
+
+        <div class="border-t border-gray-100 pt-3">
+          <div class="flex items-center justify-between mb-1">
+            <p class="text-[11px] uppercase tracking-wide text-gray-500">Xem trên dáng người</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-2 text-xs">
+            <select id="qv-gender" class="border rounded px-2 py-1 text-xs">
+              <option value="nam">Nam</option>
+              <option value="nu">Nữ</option>
+            </select>
+            <select id="qv-body" class="border rounded px-2 py-1 text-xs">
+              <option value="slim">Gầy</option>
+              <option value="fit">Cân đối</option>
+              <option value="big">To</option>
+            </select>
+            <select id="qv-height" class="border rounded px-2 py-1 text-xs">
+              <option value="165">165cm</option>
+              <option value="170">170cm</option>
+              <option value="175" selected>175cm</option>
+              <option value="180">180cm</option>
+            </select>
+          </div>
+          <p id="qv-fit-text" class="text-xs text-gray-600 bg-gray-50 rounded-lg p-2"></p>
+        </div>
+
+        <div class="border-t border-gray-100 pt-3">
+          <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-2">Gợi ý mix đồ theo phong cách</p>
+          <div class="flex flex-wrap gap-2 mb-2 text-xs">
+            <button class="px-3 py-1 rounded-full border text-gray-700 hover:bg-gray-100" onclick="applyStyleSuggest('nam-dong')">Năng động</button>
+            <button class="px-3 py-1 rounded-full border text-gray-700 hover:bg-gray-100" onclick="applyStyleSuggest('lich-su')">Lịch sự</button>
+            <button class="px-3 py-1 rounded-full border text-gray-700 hover:bg-gray-100" onclick="applyStyleSuggest('street')">Streetwear</button>
+            <button class="px-3 py-1 rounded-full border text-gray-700 hover:bg-gray-100" onclick="applyStyleSuggest('han-quoc')">Hàn Quốc</button>
+          </div>
+          <div id="qv-style-text" class="text-xs text-gray-700 bg-gray-50 rounded-lg p-2"></div>
+        </div>
+
+        <div class="border-t border-gray-100 pt-3 space-y-2 text-xs">
+          <details class="group border border-gray-100 rounded-lg p-2">
+            <summary class="flex items-center justify-between cursor-pointer">
+              <span class="font-semibold text-gray-800">Timeline & bộ sưu tập</span>
+              <i class="fas fa-chevron-down text-[10px] text-gray-500 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="mt-2 text-gray-600">
+              Ra mắt 2025 • Thuộc BST Thu Đông GUYN • Được yêu thích mạnh trong tháng 11.
+            </div>
+          </details>
+          <details class="group border border-gray-100 rounded-lg p-2">
+            <summary class="flex items-center justify-between cursor-pointer">
+              <span class="font-semibold text-gray-800">Hỏi đáp nhanh về sản phẩm</span>
+              <i class="fas fa-chevron-down text-[10px] text-gray-500 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="mt-2 text-gray-600 space-y-1">
+              <p><b>Q:</b> Chất liệu có nóng không?</p>
+              <p><b>A:</b> Vải thoáng, phù hợp khí hậu Việt Nam, không bí.</p>
+              <p><b>Q:</b> Đổi size được không?</p>
+              <p><b>A:</b> Được đổi size trong 7 ngày nếu còn tem mác.</p>
+            </div>
+          </details>
+          <details class="group border border-gray-100 rounded-lg p-2">
+            <summary class="flex items-center justify-between cursor-pointer">
+              <span class="font-semibold text-gray-800">Phân biệt GUYN thật & hàng fake</span>
+              <i class="fas fa-chevron-down text-[10px] text-gray-500 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="mt-2 text-gray-600 space-y-1">
+              <p>• Logo GUYN dệt/đính sắc nét, không lem mực.</p>
+              <p>• Tag giấy có mã QR dẫn về website GUYN.</p>
+              <p>• Đường may đều, không xổ chỉ, không bai dão.</p>
+              <p>• Mua tại website chính thức hoặc cửa hàng ủy quyền.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SO SÁNH SẢN PHẨM -->
+  <div id="compare-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40 hidden">
+    <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center gap-3">
+      <div class="flex items-center gap-2 text-sm font-semibold text-gray-800">
+        <i class="fas fa-exchange-alt text-red-600"></i>
+        <span>Đang so sánh</span>
+      </div>
+      <div id="compare-items" class="flex-1 flex gap-3 overflow-x-auto text-xs"></div>
+      <button class="text-xs text-gray-500 underline" onclick="clearCompare()">Xóa tất cả</button>
+    </div>
+  </div>
+
+   <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- CỘT 1: Giới thiệu + Social + Badge kinh nghiệm -->
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <img src="images/logo.png" alt="GUYN" class="h-10">
+          <div>
+            <h3 class="text-xl font-bold text-white">GUYN Men's Fashion</h3>
+            <p class="text-[11px] text-red-300 uppercase tracking-[0.2em]">Modern & Lịch Lãm</p>
+          </div>
+        </div>
+        <p class="text-sm mb-3">Thương hiệu thời trang nam hiện đại, tập trung vào phom dáng chuẩn nam Việt & chất liệu cao cấp.</p>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] mb-4">
+          <i class="fas fa-award text-amber-400"></i>
+          <span>5+ năm phục vụ hơn 20.000 khách hàng</span>
+        </div>
+        <div class="flex flex-wrap gap-3 mt-2 text-lg">
+          <a href="#" class="text-gray-400 hover:text-blue-500" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-gray-400 hover:text-pink-500" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="text-gray-400 hover:text-orange-500" aria-label="Shopee"><i class="fas fa-bag-shopping"></i></a>
+        </div>
+      </div>
+
+      <!-- CỘT 2: Liên hệ + Giờ làm việc + Hệ thống cửa hàng -->
+      <div>
+        <h3 class="text-lg font-bold text-white mb-3">Liên hệ</h3>
+        <ul class="space-y-2 text-sm mb-4">
+          <li class="flex items-start gap-2"><i class="fas fa-location-dot mt-1 text-red-500"></i><span>71/27 Nguyễn Phúc Chu, Tân Bình, TP.HCM</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-phone text-red-500"></i><span>Hotline: <a href="tel:0987654321" class="text-red-400 font-semibold">0987 654 321</a></span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-envelope text-red-500"></i><span>Email: <a href="mailto:support@guyn.vn" class="text-red-400">support@guyn.vn</a></span></li>
+          <li class="flex items-center gap-2 text-xs text-gray-400"><i class="fas fa-clock text-red-500"></i><span>Giờ làm việc: 8:30 - 22:00 (T2 - CN)</span></li>
+        </ul>
+        <h4 class="text-sm font-semibold text-white mb-1">Hệ thống cửa hàng</h4>
+        <ul class="space-y-1 text-xs text-gray-400 mb-3">
+          <li>• GUYN Tân Bình – 71/27 Nguyễn Phúc Chu</li>
+          <li>• GUYN Quận 1 – (đang cập nhật)</li>
+        </ul>
+        <a href="#lien-he" class="inline-flex items-center gap-2 text-xs text-red-400 hover:text-red-300">
+          <i class="fas fa-map-location-dot"></i>
+          <span>Xem bản đồ & chi nhánh</span>
+        </a>
+      </div>
+
+      <!-- CỘT 3: Chính sách + Quick links + Dịch vụ KH -->
+      <div>
+        <h3 class="text-lg font-bold text-white mb-3">Chính sách & Liên kết nhanh</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <ul class="space-y-1">
+            <li><a href="#" class="hover:text-red-400">Chính sách đổi trả</a></li>
+            <li><a href="#" class="hover:text-red-400">Chính sách bảo hành</a></li>
+            <li><a href="#" class="hover:text-red-400">Chính sách giao hàng</a></li>
+            <li><a href="#" class="hover:text-red-400">Điều khoản sử dụng</a></li>
+            <li><a href="#" class="hover:text-red-400">Chính sách bảo mật</a></li>
+          </ul>
+          <ul class="space-y-1 text-sm">
+            <li><a href="index.html" class="hover:text-red-400">Trang chủ</a></li>
+            <li><a href="sanpham.html?tag=new" class="hover:text-red-400">Sản phẩm mới</a></li>
+            <li><a href="sanpham.html" class="hover:text-red-400">Best Seller</a></li>
+            <li><a href="uudai.html" class="hover:text-red-400">Khuyến mãi</a></li>
+            <li><a href="order.html" class="hover:text-red-400">Kiểm tra đơn hàng</a></li>
+            <li><a href="#" class="hover:text-red-400">Tra cứu bảo hành</a></li>
+            <li><a href="#lien-he" class="hover:text-red-400">Hỗ trợ trực tiếp</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CỘT 4: Newsletter + Payment + Badge bảo hộ -->
+      <div>
+        <h3 class="text-lg font-bold text-white mb-3">Nhận ưu đãi qua email</h3>
+        <p class="text-xs text-gray-400 mb-2">Đăng ký để nhận mã giảm <span class="text-red-400 font-semibold">10% đơn đầu tiên</span> và tin mới nhất từ GUYN.</p>
+        <form id="footer-newsletter-form" class="flex flex-col sm:flex-row gap-2 mb-3">
+          <input id="footer-newsletter-email" type="email" placeholder="Email của bạn" class="flex-1 px-4 py-3 border border-gray-700 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-red-600" required>
+          <button type="submit" class="bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition-all duration-300 text-sm">ĐĂNG KÝ</button>
+        </form>
+        <p id="footer-newsletter-message" class="text-xs text-green-400 hidden">Cảm ơn bạn! Mã giảm 10% đã được gửi vào email.</p>
+
+        <div class="mt-4">
+          <p class="text-xs font-semibold text-gray-400 mb-1">Phương thức thanh toán</p>
+          <div class="flex flex-wrap items-center gap-2 text-2xl text-gray-300">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <span class="px-2 py-1 rounded bg-white/5 text-[10px]">MoMo</span>
+            <span class="px-2 py-1 rounded bg-white/5 text-[10px]">ZaloPay</span>
+            <span class="px-2 py-1 rounded bg-white/5 text-[10px]">COD</span>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center gap-3">
+          <img src="images/dmca-badge.png" alt="DMCA" class="h-10">
+          <div class="space-y-1 text-[11px] text-gray-400">
+            <div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-emerald-400/40 text-emerald-300">
+              <i class="fas fa-shield-alt"></i>
+              <span>SSL Secure • Verified Brand</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mx-auto px-4 mt-8 flex flex-col md:flex-row items-center justify-between gap-3 text-[11px] text-gray-500 border-t border-gray-800 pt-4">
+      <p>© 2025 GUYN Men's Fashion. All rights reserved.</p>
+      <p>Thiết kế bởi GUYN Studio • Giao diện footer có thể tự đổi màu dark/light trong tương lai.</p>
+    </div>
+  </footer>
+
+  <a href="https://zalo.me/0987654321" class="fixed bottom-5 right-5 bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-50 hover:scale-110 transition"><i class="fab fa-facebook-messenger text-2xl"></i></a>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50"></div>
+
+  <script src="js/product.js"></script>
+  <script>
+  // === BIẾN TOÀN CỤC (FRONTEND ONLY) ===
+  let allProducts = window.products || [];
+  let favoriteIds = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const categoryGroups = { 'ao-nam': ['áo khoác','áo nỉ','áo polo','áo len','áo blazer','áo somi','áo phông','áo T-shirt'], 'quan-nam': ['quần jeans','quan dai kaki','quan au','quan gio','quan short','quần nỉ'] };
+    const groupTitle = { 'ao-nam': 'Áo Nam', 'quan-nam': 'Quần Nam' };
+
+    // === (MỚI) CẢI TIẾN 1: HÀM DEBOUNCE (TRÌ HOÃN TÌM KIẾM) ===
+    function debounce(func, delay) {
+      let timeoutId;
+      return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    }
+
+    // === (MỚI) CẢI TIẾN 2: HÀM HIỆN SKELETON (GIAO DIỆN CHỜ) ===
+    function renderSkeletons() {
+      const list = document.getElementById('product-list');
+      let skeletons = '';
+      for (let i = 0; i < 6; i++) { // Vẽ 6 khung xương
+        skeletons += `
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-text" style="width: 80%"></div>
+            <div class="skeleton-text" style="width: 40%"></div>
+            <div class="skeleton-btn"></div>
+          </div>
+        `;
+      }
+      list.innerHTML = skeletons;
+    }
+
+    // === (MỚI) CẢI TIẾN 3: HÀM HIỆN TOAST (THÔNG BÁO ĐẸP) ===
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      
+      container.appendChild(toast);
+      
+      // Hiện toast
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100); // delay 100ms
+      
+      // Ẩn toast sau 3 giây
+      setTimeout(() => {
+        toast.classList.remove('show');
+        // Xóa hẳn toast sau khi mờ đi
+        setTimeout(() => {
+          if (container.contains(toast)) {
+            container.removeChild(toast);
+          }
+        }, 300); // 300ms là thời gian transition
+      }, 3000); // 3000ms = 3 giây
+    }
+
+    // === HÀM VẼ SẢN PHẨM (ĐÃ TỐI ƯU) ===
+    let compareList = [];
+    let quickViewState = { product: null, images: [], currentIndex: 0 };
+
+    function isFavorite(id) {
+      return favoriteIds.includes(id);
+    }
+
+    function saveFavorites() {
+      localStorage.setItem('favorites', JSON.stringify(favoriteIds));
+    }
+
+    function updateFavoriteIcons() {
+      document.querySelectorAll('.favorite-btn').forEach(btn => {
+        const id = parseInt(btn.getAttribute('data-id'), 10);
+        const icon = btn.querySelector('i');
+        if (isFavorite(id)) {
+          icon.classList.remove('fa-regular', 'text-gray-500');
+          icon.classList.add('fa-solid', 'text-red-500');
+        } else {
+          icon.classList.remove('fa-solid', 'text-red-500');
+          icon.classList.add('fa-regular', 'text-gray-500');
+        }
+      });
+    }
+
+    function toggleFavorite(id) {
+      if (isFavorite(id)) {
+        favoriteIds = favoriteIds.filter(f => f !== id);
+        showToast('Đã bỏ khỏi danh sách yêu thích');
+      } else {
+        favoriteIds.push(id);
+        showToast('Đã thêm vào danh sách yêu thích');
+      }
+      saveFavorites();
+      updateFavoriteIcons();
+    }
+
+    function renderProducts(filtered) {
+      const list = document.getElementById('product-list');
+      
+      list.innerHTML = filtered.length === 0
+        ? '<p class="col-span-full text-center text-gray-500 py-10 text-lg">Không tìm thấy sản phẩm.</p>'
+        : filtered.map(p => {
+            // Giả lập số sao & đã bán kiểu sàn TMĐT
+            const rating = (4 + Math.random() * 1).toFixed(1); // 4.0 - 5.0
+            const sold = Math.floor(20 + Math.random() * 180); // 20 - 200
+            const isHot = p.discount >= 30 || (p.originalPrice && (p.originalPrice - p.price) > 200000);
+            const tag = isHot ? 'HOT MEN\'S PICK' : (p.discount > 0 ? 'Giảm giá' : 'New Arrival');
+            const modelInfo = p.modelInfo || 'Model: 177cm / 68kg - M size';
+            const sizeHint = p.sizeHint || 'Gợi ý size của bạn: M (1m7 - 1m75)';
+            const styleTag = p.styleTag || 'Korean Look';
+            return `
+          <div class="product-card cursor-pointer group relative" data-id="${p.id}" onclick="location.href='chitietsp.html?id=${p.id}'">
+            <div class="absolute top-2 left-2 z-10 flex items-center gap-1 text-[10px] font-semibold text-white">
+              <span class="px-2 py-0.5 rounded bg-red-600/90">GUYN Mall</span>
+              <span class="px-2 py-0.5 rounded bg-pink-500/90 hidden sm:inline">Yêu thích+</span>
+            </div>
+            <button 
+              class="absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow favorite-btn"
+              onclick="event.stopPropagation(); toggleFavorite(${p.id})"
+              data-id="${p.id}"
+            >
+              <i class="fa-regular fa-heart text-gray-500 text-sm"></i>
+            </button>
+            ${p.discount > 0 ? `<span class="absolute top-2 right-2 translate-x-8 bg-red-600 text-white text-[11px] px-2 py-1 rounded shadow-sm">-${p.discount}%</span>` : ''}
+            <div class="relative w-full h-52 overflow-hidden">
+              <img src="${p.image}" alt="${p.name}" class="w-full h-52 object-cover transition-opacity duration-300 group-hover:opacity-0">
+              <img src="${(p.previewImages && p.previewImages[1]) || p.image}" alt="${p.name} model" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            </div>
+            <div class="p-3.5 relative z-10 bg-white/90">
+              <h3 class="text-xs md:text-sm font-medium line-clamp-2 mb-1.5 text-gray-900">${p.name}</h3>
+              <div class="flex items-baseline justify-between gap-2 mb-1">
+                <div class="flex items-end gap-1">
+                  <span class="text-red-600 font-bold text-sm md:text-base">${p.price.toLocaleString()}đ</span>
+                  ${p.originalPrice > p.price ? `<span class="text-[11px] text-gray-400 line-through">${p.originalPrice.toLocaleString()}đ</span>` : ''}
+                </div>
+                <span class="text-[10px] px-2 py-1 rounded bg-yellow-50 text-yellow-700 border border-yellow-200">${tag}</span>
+              </div>
+              <div class="flex items-center justify-between text-[10px] text-gray-500 mb-1">
+                <span class="px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">${styleTag}</span>
+                <span class="px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200 hidden sm:inline">FORM SLIM / OVERSIZE</span>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
+                <div class="flex items-center gap-1">
+                  <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                  <span class="font-semibold text-gray-700">${rating}</span>
+                </div>
+                <span>Đã bán ${sold}+</span>
+              </div>
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="flex items-center gap-1 text-green-600"><i class="fas fa-truck-fast text-[10px]"></i> Freeship từ 299k</span>
+                <span class="px-1.5 py-0.5 rounded bg-gray-100 text-gray-600 max-w-[80px] truncate text-right">${p.category || ''}</span>
+              </div>
+              <div class="mt-1 text-[10px] text-gray-500 flex justify-between">
+                <span>${modelInfo}</span>
+              </div>
+              <div class="text-[10px] text-blue-600 mt-0.5">${sizeHint}</div>
+              <div class="mt-2 flex items-center justify-between gap-2 text-[11px]">
+                <button class="flex-1 border border-red-600 text-red-600 rounded-full py-1 flex items-center justify-center gap-1 bg-white hover:bg-red-50" onclick="event.stopPropagation(); openQuickView(${p.id})">
+                  <i class="fas fa-eye"></i>
+                  Xem nhanh
+                </button>
+                <button class="px-3 py-1 rounded-full border text-gray-600 hover:bg-gray-100 flex items-center gap-1" onclick="event.stopPropagation(); toggleCompare(${p.id})">
+                  <i class="fas fa-balance-scale"></i>
+                  So sánh
+                </button>
+              </div>
+            </div>
+          </div>`;
+        }).join('');
+
+      updateFavoriteIcons();
+
+      //document.getElementById('cart-count').textContent = cart.reduce((s, i) => s + i.quantity, 0);
+    }
+  
+    // === HÀM THÊM GIỎ HÀNG (FRONTEND ONLY, LOCALSTORAGE) ===
+  function addToCart(id) {
+    const p = allProducts.find(x => x.id == id);
+    if (!p) {
+      showToast('Sản phẩm không tồn tại');
+      return;
+    }
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const item = { id: p.id, name: p.name, price: p.price, image: p.image, size: (p.size && p.size[0]) || 'M', color: (p.color && p.color[0]) || 'Đen', quantity: 1 };
+    const exist = cart.find(i => i.id === item.id && i.size === item.size && i.color === item.color);
+    if (exist) exist.quantity += 1; else cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    showToast(`✅ Đã thêm "${p.name}" vào giỏ!`);
+    updateCartCountBadge();
+  }
+// QUICK VIEW + FIT + MIX ĐỒ
+function openQuickView(id) {
+  const product = allProducts.find(p => p.id === id);
+  if (!product) return;
+  quickViewState.product = product;
+  quickViewState.images = product.previewImages && product.previewImages.length ? product.previewImages : [product.image];
+  quickViewState.currentIndex = 0;
+
+  document.getElementById('qv-name').textContent = product.name;
+  document.getElementById('qv-category').textContent = product.category ? `Danh mục: ${product.category}` : '';
+  document.getElementById('qv-price').textContent = product.price.toLocaleString() + 'đ';
+  document.getElementById('qv-original').textContent = product.originalPrice > product.price ? product.originalPrice.toLocaleString() + 'đ' : '';
+  document.getElementById('qv-discount').textContent = product.discount > 0 ? `-${product.discount}%` : '';
+
+  const rating = (4 + Math.random()).toFixed(1);
+  const sold = Math.floor(200 + Math.random() * 800);
+  document.querySelector('#qv-rating span:last-child').textContent = rating;
+  document.getElementById('qv-sold').textContent = `Đã bán ${sold.toLocaleString()}+ tháng này`;
+
+  const sizeWrap = document.getElementById('qv-sizes');
+  sizeWrap.innerHTML = '';
+  const sizes = Array.isArray(product.size) ? product.size : (typeof product.size === 'string' ? product.size.split(',') : []);
+  sizes.forEach((s, idx) => {
+    const btn = document.createElement('button');
+    btn.textContent = s;
+    btn.className = 'px-3 py-1 rounded-full border text-xs ' + (idx === 0 ? 'bg-gray-900 text-white' : 'bg-white text-gray-700');
+    btn.onclick = () => {
+      Array.from(sizeWrap.children).forEach(c => c.classList.remove('bg-gray-900','text-white'));
+      Array.from(sizeWrap.children).forEach(c => c.classList.add('bg-white','text-gray-700'));
+      btn.classList.add('bg-gray-900','text-white');
+      btn.classList.remove('bg-white','text-gray-700');
+    };
+    sizeWrap.appendChild(btn);
+  });
+
+  document.getElementById('qv-main-image').src = quickViewState.images[0];
+  const thumbs = document.getElementById('qv-thumbs');
+  thumbs.innerHTML = '';
+  quickViewState.images.forEach((img, index) => {
+    const t = document.createElement('img');
+    t.src = img;
+    t.className = 'w-16 h-16 object-cover rounded border cursor-pointer ' + (index === 0 ? 'border-red-500' : 'border-transparent');
+    t.onclick = () => {
+      quickViewState.currentIndex = index;
+      document.getElementById('qv-main-image').src = img;
+      Array.from(thumbs.children).forEach(c => c.classList.remove('border-red-500'));
+      t.classList.add('border-red-500');
+    };
+    thumbs.appendChild(t);
+  });
+
+  updateFitText();
+
+  document.getElementById('qv-add-cart').onclick = () => addToCart(product.id);
+  document.getElementById('quick-view-overlay').classList.remove('hidden');
+  document.getElementById('quick-view-overlay').classList.add('flex');
+}
+
+function closeQuickView() {
+  const overlay = document.getElementById('quick-view-overlay');
+  overlay.classList.add('hidden');
+  overlay.classList.remove('flex');
+}
+
+document.addEventListener('click', (e) => {
+  const overlay = document.getElementById('quick-view-overlay');
+  if (!overlay.classList.contains('hidden') && e.target === overlay) {
+    closeQuickView();
+  }
+});
+
+document.getElementById('qv-prev').onclick = () => {
+  if (!quickViewState.images.length) return;
+  quickViewState.currentIndex = (quickViewState.currentIndex - 1 + quickViewState.images.length) % quickViewState.images.length;
+  document.getElementById('qv-main-image').src = quickViewState.images[quickViewState.currentIndex];
+};
+document.getElementById('qv-next').onclick = () => {
+  if (!quickViewState.images.length) return;
+  quickViewState.currentIndex = (quickViewState.currentIndex + 1) % quickViewState.images.length;
+  document.getElementById('qv-main-image').src = quickViewState.images[quickViewState.currentIndex];
+};
+
+function updateFitText() {
+  if (!quickViewState.product) return;
+  const gender = document.getElementById('qv-gender').value;
+  const body = document.getElementById('qv-body').value;
+  const height = parseInt(document.getElementById('qv-height').value, 10);
+  let txt = `${gender === 'nam' ? 'Anh' : 'Bạn'} cao ${height}cm, dáng ${body === 'slim' ? 'gầy' : body === 'fit' ? 'cân đối' : 'to'}, khi mặc sẽ:
+- Vai áo ôm vừa phải, không bị bó.
+- Chiều dài áo khoảng ngang hông hoặc thấp hơn 3–5cm.
+- Phù hợp cho đi làm, đi chơi hằng ngày.`;
+  if (height >= 180 && body === 'big') {
+    txt += '\nGợi ý: nên chọn size lớn hơn 1 size để mặc thoải mái hơn.';
+  }
+  document.getElementById('qv-fit-text').textContent = txt;
+}
+
+document.getElementById('qv-gender').onchange = updateFitText;
+document.getElementById('qv-body').onchange = updateFitText;
+document.getElementById('qv-height').onchange = updateFitText;
+
+function applyStyleSuggest(styleKey) {
+  if (!quickViewState.product) return;
+  const p = quickViewState.product;
+  let text = '';
+  switch (styleKey) {
+    case 'nam-dong':
+      text = `Mix năng động với ${p.category} GUYN: kết hợp cùng quần jeans slim fit, sneaker trắng và balo vải, thêm mũ lưỡi trai để hoàn thiện outfit.`;
+      break;
+    case 'lich-su':
+      text = `Set lịch sự: phối ${p.category} với quần âu màu trung tính, giày da lười và đồng hồ kim loại – phù hợp đi làm hoặc gặp đối tác.`;
+      break;
+    case 'street':
+      text = `Streetwear: layer ${p.category} cùng áo thun basic, quần jogger và sneaker to bản, thêm nón bucket là đủ chất phố.`;
+      break;
+    case 'han-quoc':
+      text = `Phong cách Hàn Quốc: chọn tông màu pastel/earth tone, phối ${p.category} với quần ống rộng và giày loafers, sơ vin nhẹ cho dáng cao hơn.`;
+      break;
+  }
+  document.getElementById('qv-style-text').textContent = text;
+}
+
+// SO SÁNH SẢN PHẨM
+function toggleCompare(id) {
+  const index = compareList.indexOf(id);
+  if (index >= 0) compareList.splice(index, 1);
+  else if (compareList.length < 3) compareList.push(id);
+  renderCompare();
+}
+
+function clearCompare() {
+  compareList = [];
+  renderCompare();
+}
+
+function renderCompare() {
+  const bar = document.getElementById('compare-bar');
+  const wrap = document.getElementById('compare-items');
+  if (!compareList.length) {
+    bar.classList.add('hidden');
+    wrap.innerHTML = '';
+    return;
+  }
+  bar.classList.remove('hidden');
+  const items = compareList.map(id => allProducts.find(p => p.id === id)).filter(Boolean);
+  wrap.innerHTML = items.map(p => `
+    <div class="min-w-[160px] border border-gray-200 rounded-lg p-2 bg-gray-50 flex flex-col gap-1">
+      <div class="flex items-center justify-between gap-1">
+        <p class="text-[11px] font-semibold line-clamp-2">${p.name}</p>
+        <button class="text-[10px] text-gray-400" onclick="toggleCompare(${p.id})">✕</button>
+      </div>
+      <p class="text-xs text-red-600 font-bold">${p.price.toLocaleString()}đ</p>
+      ${p.originalPrice > p.price ? `<p class="text-[11px] text-gray-400 line-through">${p.originalPrice.toLocaleString()}đ</p>` : ''}
+      <p class="text-[11px] text-gray-500">Danh mục: ${p.category || ''}</p>
+      <p class="text-[11px] text-gray-500">Size: ${(Array.isArray(p.size) ? p.size.join(', ') : p.size || '')}</p>
+      <p class="text-[11px] text-gray-500">Màu: ${(Array.isArray(p.color) ? p.color.join(', ') : p.color || '')}</p>
+      <p class="text-[11px] text-gray-500 line-clamp-2">${p.description || ''}</p>
+    </div>
+  `).join('');
+}
+   // === (SỬA) HÀM LỌC SẢN PHẨM (SỬA LỖI IF BỊ MẤT) ===
+function applyFilters() {
+    let filtered = [...allProducts]; 
+    const urlParams = new URLSearchParams(window.location.search);
+    const cat = urlParams.get('cat') || '';
+
+    if (categoryGroups[cat]) {
+        filtered = filtered.filter(p => categoryGroups[cat].includes(p.category));
+        document.querySelector('.section-title').textContent = groupTitle[cat];
+    } else if (cat) {
+        filtered = filtered.filter(p => p.category === cat);
+        document.getElementById('category-filter').value = cat;
+    }
+
+    const f = {
+        category: document.getElementById('category-filter').value,
+        size: document.getElementById('size-filter').value,
+        color: document.getElementById('color-filter').value,
+        price: document.getElementById('price-filter').value,
+        sort: document.getElementById('sort-filter').value,
+      search: document.getElementById('search-input').value.trim().toLowerCase(),
+      style: document.getElementById('style-filter') ? document.getElementById('style-filter').value : '',
+      fit: document.getElementById('fit-filter') ? document.getElementById('fit-filter').value : '',
+      season: document.getElementById('season-filter') ? document.getElementById('season-filter').value : ''
+    };
+
+    // Lọc theo DANH MỤC (không phân biệt hoa/thường, cho phép chứa gần đúng)
+    if (f.category && !categoryGroups[cat]) {
+        const catText = f.category.toString().trim().toLowerCase();
+        filtered = filtered.filter(p => {
+          if (!p.category) return false;
+          const pc = p.category.toString().trim().toLowerCase();
+          return pc === catText || pc.includes(catText) || catText.includes(pc);
+        });
+    }
+
+    // Lọc theo SIZE – hỗ trợ cả mảng và chuỗi "M,L,XL"
+    if (f.size) {
+        filtered = filtered.filter(p => {
+          if (!p.size) return false;
+          const sizes = Array.isArray(p.size)
+            ? p.size
+            : p.size.toString().split(',').map(s => s.trim());
+          return sizes.includes(f.size);
+        });
+    }
+    if (f.color) {
+      filtered = filtered.filter(p => {
+        if (!p.color) return false;
+        const colors = Array.isArray(p.color) ? p.color : p.color.split(',');
+        return colors.includes(f.color);
+      });
+    }
+    if (f.price) {
+        const [min, max] = f.price === '700000+' ? [700000, Infinity] : f.price.split('-').map(Number);
+        filtered = filtered.filter(p => p.price >= min && (max ? p.price <= max : true));
+    }
+    // Lọc theo style/fit/season nếu sản phẩm có meta tương ứng (demo theo description)
+    if (f.style) {
+      filtered = filtered.filter(p => (p.description || '').toLowerCase().includes(f.style));
+    }
+    if (f.fit) {
+      filtered = filtered.filter(p => (p.description || '').toLowerCase().includes(f.fit));
+    }
+    if (f.season) {
+      filtered = filtered.filter(p => (p.description || '').toLowerCase().includes(f.season));
+    }
+    if (f.search) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(f.search));
+    }
+    if (f.sort === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+    }
+    if (f.sort === 'price-desc') {
+      filtered.sort((a, b) => b.price - a.price);
+    }
+
+    renderProducts(filtered);
+}
+
+  // QUICK FILTER CHIPS
+  function applyQuickChip(key) {
+    let filtered = [...allProducts];
+    switch (key) {
+      case 'best':
+        filtered = filtered.sort((a, b) => (b.discount || 0) - (a.discount || 0)).slice(0, 9);
+        break;
+      case 'sale':
+        filtered = filtered.filter(p => (p.discount || 0) >= 30);
+        break;
+      case 'work':
+        filtered = filtered.filter(p => ['áo khoác','áo blazer','áo somi','quan dai kaki','quần jeans','quan au'].includes(p.category));
+        break;
+      case 'cafe':
+        filtered = filtered.filter(p => ['áo nỉ','áo polo','áo len','quần jeans','quan short','phụ kiện'].includes(p.category));
+        break;
+      case 'reset':
+      default:
+        applyFilters();
+        return;
+    }
+    renderProducts(filtered);
+  }
+
+  // MEGA FILTER BAR HÀNH VI PILL
+  function setActivePrimaryPill(key) {
+    const group = document.getElementById('primary-pill-group');
+    if (!group) return;
+    group.querySelectorAll('.pill-btn').forEach(btn => {
+      if (btn.getAttribute('data-pill') === key) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  }
+
+  function handlePrimaryPillClick(key) {
+    setActivePrimaryPill(key);
+    let filtered = [...allProducts];
+    switch (key) {
+      case 'best':
+        filtered = filtered.sort((a, b) => (b.discount || 0) - (a.discount || 0)).slice(0, 12);
+        break;
+      case 'new':
+        filtered = filtered.sort((a, b) => (b.id || 0) - (a.id || 0)).slice(0, 12);
+        break;
+      case 'deal':
+        filtered = filtered.filter(p => (p.discount || 0) >= 20).slice(0, 12);
+        break;
+      case 'for-you':
+        filtered = filtered.sort((a, b) => (b.discount || 0) - (a.discount || 0));
+        break;
+      default:
+        applyFilters();
+        return;
+    }
+    renderProducts(filtered);
+  }
+
+  function applyQuickSort(key) {
+    const sortSelect = document.getElementById('sort-filter');
+    if (!sortSelect) return;
+    sortSelect.value = key;
+    applyFilters();
+  }
+
+  // Bộ lọc outfit combo (đi học, đi làm...)
+  function applyOutfitCombo(type) {
+    let filtered = [...allProducts];
+    switch (type) {
+      case 'study':
+        filtered = filtered.filter(p => ['áo T-shirt','áo nỉ','quan short','quần jeans'].includes(p.category));
+        break;
+      case 'work':
+        filtered = filtered.filter(p => ['áo somi','áo blazer','quan au','quan dai kaki'].includes(p.category));
+        break;
+      case 'play':
+        filtered = filtered.filter(p => ['áo polo','áo T-shirt','quần jeans','quan short'].includes(p.category));
+        break;
+      case 'date':
+        filtered = filtered.filter(p => ['áo somi','áo len','quan au'].includes(p.category));
+        break;
+      case 'sport':
+        filtered = filtered.filter(p => ['áo nỉ','quần nỉ'].includes(p.category));
+        break;
+      case 'street':
+        filtered = filtered.filter(p => ['áo khoác','áo nỉ','quần jeans'].includes(p.category));
+        break;
+      default:
+        break;
+    }
+    renderProducts(filtered);
+  }
+  
+  // Đếm giỏ hàng thuần frontend
+  function updateCartCountBadge() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const totalQuantity = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+    const el = document.getElementById('cart-count');
+    if (el) el.textContent = totalQuantity;
+  }
+    // === CÁC EVENT LISTENERS (ĐÃ NÂNG CẤP) ===
+    
+    // Lắng nghe các bộ lọc
+    ['category-filter','size-filter','color-filter','price-filter','sort-filter','style-filter','fit-filter','season-filter'].forEach(id => {
+      document.getElementById(id).onchange = applyFilters;
+    });
+    
+    // (MỚI) Lắng nghe ô tìm kiếm (dùng DEBOUNCE)
+    const debouncedApplyFilters = debounce(applyFilters, 300);
+    document.getElementById('search-input').oninput = debouncedApplyFilters;
+    
+    // Lắng nghe nút bật/tắt search
+    document.getElementById('search-toggle').onclick = () => {
+      const bar = document.getElementById('search-bar');
+      bar.classList.toggle('hidden');
+      if (!bar.classList.contains('hidden')) document.getElementById('search-input').focus();
+    };
+    
+    // === KHỞI ĐỘNG TRANG (FRONTEND ONLY) ===
+  window.addEventListener('DOMContentLoaded', () => {
+    renderSkeletons();
+    applyFilters();
+    updateCartCountBadge();
+  });
+  </script>
+</body>
+</html>
